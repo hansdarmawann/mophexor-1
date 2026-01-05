@@ -1,1 +1,1 @@
-# motion-photo-extractor-1
+# Mophexor: Android Motion Photos Extractor

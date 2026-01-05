@@ -1,52 +1,66 @@
-# mophexor: Android Motion Pictures Extractor
+# mophexor — Motion Photo Extractor
 
-`mophexor` is a lightweight Python tool that scans image libraries and extracts
-embedded **Motion Photo videos** (`MotionPhotoVideo`) into standalone MP4 files,
-while preserving the original file timestamps.
+`mophexor` is a lightweight Python utility for extracting embedded **Motion Photo
+video streams** (`MotionPhotoVideo`) from image files into standalone MP4 files,
+while preserving original file timestamps.
 
-Motion Photos are supported by multiple Android OEMs (e.g. Samsung, Google Pixel,
-Xiaomi, Huawei), and this tool works at the **metadata level**, independent of
-brand-specific camera apps.
+The tool operates purely at the **metadata level** using ExifTool and is
+**OEM-agnostic**, supporting Motion Photos produced by multiple Android devices
+(e.g. Samsung, Google Pixel, Xiaomi, Huawei).
 
-This project is designed as a **local automation utility**, not a PyPI package.
+This project is designed as a **local automation and data-ingestion utility**,
+not as a PyPI-distributed package.
+
+> ⚠️ **Platform note:**  
+> `mophexor` is **currently available only on Windows**, due to its use of
+> Windows-native file timestamp APIs.
 
 ---
 
 ## ✨ Features
 
-- Recursively scan folders for `.jpg` and `.heic`
-- Detect real Motion Photos via `MotionPhotoVideo` metadata
-- Extract embedded video to `*_motion.mp4`
-- Skip valid existing MP4 files
-- Replace corrupted MP4 files (<100 KB)
-- Preserve **creation / modified / access timestamps**
-- Windows-native timestamp handling (`pywin32`)
-- Brand-agnostic (ExifTool-based)
+- Recursive scan of image folders
+- Supports `.jpg` and `.heic`
+- Detects Motion Photos via `MotionPhotoVideo` metadata
+- Extracts embedded video to `*_motion.mp4`
+- Skips valid existing MP4 files
+- Replaces corrupted MP4 files (<100 KB)
+- Preserves creation / modified / access timestamps
+- Windows-native timestamp handling
+- Deterministic and re-runnable
 
 ---
 
 ## 🧱 Project Structure
 
+Based on the current repository layout:
+
 ```text
 mophexor/
 │
-├── extractor.py        # Core workflow
-├── exiftool.py         # ExifTool wrapper
-├── timestamps.py      # Windows timestamp sync
+├── config.py              # Configuration (paths, thresholds)
+├── main.py                # Entry point
 │
-├── config.py           # Paths & constants
-├── main.py             # Entry point
-├── requirements.txt
-└── README.md
+├── extractor.py           # Core extraction workflow
+├── exiftool.py            # ExifTool subprocess wrapper
+├── timestamps.py          # Windows timestamp synchronization
+│
+├── exiftool-13.45_64/     # Bundled ExifTool binary (third-party)
+│   └── exiftool(-k).exe
+│
+├── sample/                # Sample input images
+├── NOTICE                 # Third-party attributions
+├── README.md
+└── requirements.txt
 ````
 
 ---
 
 ## ⚙️ Requirements
 
-* Windows
+* **Windows (required)**
 * Python 3.11
-* ExifTool (any modern version; digiKam bundle works)
+* ExifTool (bundled or external)
 
 ---
 
@@ -63,8 +77,8 @@ conda activate mophexor
 
 1. Edit `config.py`:
 
-   * `ROOT_DIR`
-   * `EXIFTOOL_PATH`
+   * Set `ROOT_DIR` to the folder containing images
+   * Set `EXIFTOOL_PATH` to `exiftool(-k).exe`
 
 2. Run:
 
@@ -79,14 +93,36 @@ python main.py
 1. Walks the directory tree recursively
 2. Checks for the `MotionPhotoVideo` tag using ExifTool
 3. Validates existing MP4 outputs
-4. Extracts the embedded video stream if needed
-5. Syncs timestamps from the source image
+4. Extracts embedded video streams when needed
+5. Synchronizes timestamps from source image to MP4
+
+---
+
+## 🔐 Third-Party Software
+
+This project relies on **ExifTool**, developed by **Phil Harvey**, for reading and
+extracting Motion Photo metadata.
+
+ExifTool is **free and open-source software**, licensed under the **Perl Artistic
+License**, which permits use, redistribution, and bundling.
+
+Attribution and license details for ExifTool are provided in the
+[`NOTICE`](./NOTICE) file.
+
+`mophexor` does **not** modify ExifTool and does **not** claim ownership over it.
 
 ---
 
 ## ⚠️ Notes & Limitations
 
-* Requires ExifTool installed locally
-* Timestamp syncing is Windows-specific
+* **Windows-only (for now)**
+* Timestamp synchronization is Windows-specific
 * Works on metadata only (no image decoding)
 * Behavior depends on OEM metadata compliance
+* Intended for local / personal / internal automation
+
+---
+
+## 📜 License
+
+This project is provided for personal and internal use.

@@ -55,19 +55,33 @@ mophexor/
 ````
 
 ---
-
 ## ⚙️ Requirements
 
-* **Windows (required)**
-* Python 3.11
-* ExifTool (bundled or external)
+- **Windows (required)**
+- On Windows:
+  - Python 3.11
+  - ExifTool (bundled or external)
 
 ---
 
-## 🐍 Conda Environment
+## 🐍 Conda Environment (Installation)
+
+`mophexor` is designed to run on **Windows** using a Conda-managed Python
+environment.
+
+### Prerequisites
+
+- **Miniconda (Windows)** must be installed and available in your system PATH.
+
+### 1. Create the environment
 
 ```bash
 conda create -n mophexor python=3.11 pywin32 -y
+````
+
+### 2. Activate the environment
+
+```bash
 conda activate mophexor
 ```
 

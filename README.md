@@ -1,6 +1,6 @@
-# mophexor — Motion Photo Extractor
+# Mophexor — Motion Photo Extractor
 
-`mophexor` is a lightweight Python utility for extracting embedded **Motion Photo
+`Mophexor` is a lightweight Python utility for extracting embedded **Motion Photo
 video streams** (`MotionPhotoVideo`) from image files into standalone MP4 files,
 while preserving original file timestamps.
 
@@ -8,12 +8,24 @@ The tool operates purely at the **metadata level** using ExifTool and is
 **OEM-agnostic**, supporting Motion Photos produced by multiple Android devices
 (e.g. Samsung, Google Pixel, Xiaomi, Huawei).
 
+### 📌 Preface
+
+This project was created to address a practical gap in managing large personal
+photo libraries. While Motion Photos embed short video clips inside image files,
+those video streams are often difficult to access, preserve, or manage reliably
+in long-term archiving, backup, and cross-platform workflows.
+
+`Mophexor` makes these embedded video streams explicit by extracting them into
+standalone MP4 files in a deterministic and repeatable way, improving portability,
+data transparency, and long-term maintainability.
+
 This project is designed as a **local automation and data-ingestion utility**,
 not as a PyPI-distributed package.
 
 > ⚠️ **Platform note:**  
-> `mophexor` is **currently available only on Windows**, due to its use of
+> `Mophexor` is **currently available only on Windows**, due to its use of
 > Windows-native file timestamp APIs.
+
 
 ---
 
@@ -49,9 +61,10 @@ mophexor/
 │   └── exiftool(-k).exe
 │
 ├── sample/                # Sample input images
+│
+├── mophexor.yml           # Conda environment definition
 ├── NOTICE                 # Third-party attributions
 ├── README.md
-└── requirements.txt
 ````
 
 ---
@@ -66,7 +79,7 @@ mophexor/
 
 ## 🐍 Conda Environment (Installation)
 
-`mophexor` is designed to run on **Windows** using a Conda-managed Python
+`Mophexor` is designed to run on **Windows** using a Conda-managed Python
 environment.
 
 ### Prerequisites
@@ -76,13 +89,13 @@ environment.
 ### 1. Create the environment
 
 ```bash
-conda create -n mophexor python=3.11 pywin32 -y
+conda create -n Mophexor python=3.11 pywin32 -y
 ````
 
 ### 2. Activate the environment
 
 ```bash
-conda activate mophexor
+conda activate Mophexor
 ```
 
 ---
@@ -123,7 +136,7 @@ License**, which permits use, redistribution, and bundling.
 Attribution and license details for ExifTool are provided in the
 [`NOTICE`](./NOTICE) file.
 
-`mophexor` does **not** modify ExifTool and does **not** claim ownership over it.
+`Mophexor` does **not** modify ExifTool and does **not** claim ownership over it.
 
 ---
 

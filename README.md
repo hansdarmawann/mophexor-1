@@ -1,4 +1,4 @@
-# Mophexor — Motion Photo Extractor
+# Mophexor — Android Motion Photos Extractor
 
 `Mophexor` is a lightweight Python utility for extracting embedded **Motion Photo
 video streams** (`MotionPhotoVideo`) from image files into standalone MP4 files,
